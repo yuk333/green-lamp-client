@@ -1,23 +1,21 @@
-import logo from './logo.svg';
+import MainPage from './main';
+import Header from './include/Header';
+import Footer from './include/Footer';
 import './App.css';
+import {Route,Routes} from "react-router-dom";
+import ProductView from './detailView';
+import UploadPage from './upload';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" id="wrap">
+      <Header />
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/products/:id" element={<ProductView />}/>
+          <Route path="/upload" element={<UploadPage />}/>
+        </Routes>
+      <Footer />
     </div>
   );
 }
