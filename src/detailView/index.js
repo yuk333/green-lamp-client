@@ -33,7 +33,7 @@ function ProductView(){
             <div id="contents-box">
                 <div>{product.name}</div>
                 <div>{product.price}</div>
-                <div>{product.createAt}</div>
+                <div>{product.createdAt}</div>
                 <div>{product.description}</div>
             </div>
         </div>

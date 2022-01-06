@@ -1,13 +1,29 @@
 import "antd/dist/antd.css";
-import "./upload.scss"; 
+import "./upload.scss"
+import { useNavigate} from "react-router-dom";
 import {useState} from "react"
+import axios from "axios";
 import {Form,Divider,Input,InputNumber,Button,Upload} from "antd";
 function UploadPage(){
     //이미지 경로 상태관리 추가하기
     const[imageUrl,setImageUrl] = useState(null);
-    const onSubmit = () =>{
-        console.log('업로드');
+    const navigate = useNavigate();
+    const onSubmit = (values)=>{
+        axios.post("http://localhost:8080/products",{
+            name:values.name,
+            description:values.description,
+            seller:values.seller,
+            price:parseInt(values.price),
+            imageUrl:"http://localhost:8080"+imageUrl
+        }).then((result)=>{
+            console.log(result);
+            navigate(-1);
+        })
+        .catch((error)=>{
+            console.error(error);
+        })
     }
+    
     //이미지처리함수
     const onChangeImage = (info) => {
         //파일이 업로드 중일대
@@ -32,10 +48,16 @@ function UploadPage(){
                     onChange={onChangeImage}
                     showUploadList = {false}
                     >
-                    <div id="upload-img">
+                    {/*이미지가 있으면 이미지를 나타내고 없으면 이미지 업로드 해주세요가 나타나도록 설정*/}
+                    {
+                        imageUrl ? (<img src={`http://localhost:8080/${imageUrl}`} alt="이미지" width="200px"/>) : (
+                            <div id="upload-img">
                         <img src="/images/icons/camera.png" alt="카메라" />
                         <span>이미지를 업로드 해주세요</span>
                     </div>
+                        )
+                    }
+                    
                     </Upload>
                 </Form.Item>
                 <Form.Item name="seller" label={<div className="upload-label">판매자 명</div>}
