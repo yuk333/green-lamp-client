@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function MainPage(){
     const [products,setProducts] = useState([]);
     useEffect(()=>{
-        axios.get("https://db61c468-4fa6-4bcf-8b07-aacfc25ea3d6.mock.pstmn.io/products")
+        axios.get("http://localhost:8080/products")
         .then(function(result){
             const products = result.data.products;
             setProducts(products);
@@ -49,4 +49,4 @@ function MainPage(){
             </div>
     );
 }
-export default MainPage;
+export default MainPage
